@@ -1,12 +1,12 @@
 # CTCI
 
 ### Backtrack Summary: 
-#####(Combination Sum, Subsets, Permutation,  Palindrome)
+Combination Sum, Subsets, Permutation,  Palindrome)
 
 
 39. Combination Sum
 
-![https://leetcode.com/problems/combination-sum/]: (https://leetcode.com/problems/combination-sum/)
+[https://leetcode.com/problems/combination-sum/](https://leetcode.com/problems/combination-sum/)
 
 ```python
 def combinationSum(self, candidates, target):
@@ -28,7 +28,7 @@ def combinationSum(self, candidates, target):
 
 40. Combination Sum II
 
-![https://leetcode.com/problems/combination-sum-ii/]: (https://leetcode.com/problems/combination-sum-ii/)
+[https://leetcode.com/problems/combination-sum-ii/](https://leetcode.com/problems/combination-sum-ii/)
 
 ```python
 def combinationSum2(self, candidates, target):
