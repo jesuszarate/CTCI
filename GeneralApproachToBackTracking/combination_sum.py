@@ -1,38 +1,27 @@
+class Solution:
+    def combinationSum(self, candidates, target):
+        self.result = []
+
+        candidates.sort()
+        self.rec(candidates, [], target, 0)
+        return self.result
 
 
-'''
-Input: candidates = [2,3,6,7], target = 7,
-A solution set is:
-[
-  [7],
-  [2,2,3]
-]
-'''
-class CombinationSum:
-
-    def combination(self, nums, target):
-
-        lst = list()
-
-        self.backtrack(lst, list(), nums, target, 0)
-
-        return lst
-
-    def backtrack(self, lst, tmp_lst, nums, target, ind):
-
+    def rec(self, candidates, lst, target, ind):
+        current_list = lst.copy()
         if target == 0:
-            lst.append([i for i in tmp_lst])
+            self.result.append(current_list)
             return
 
-        for i in range(ind, len(nums)):
+        if target < 0:
+            return
 
-            if target - nums[i] >= 0:
-                tmp_lst.append(nums[i])
-                self.backtrack(lst, tmp_lst, nums, target - nums[i], i)
-                del tmp_lst[-1]
+        for i in range(ind, len(candidates)):
+            current_list.append(candidates[i])
+            self.rec(candidates, current_list, target - candidates[i], i)
+            del current_list[-1]
 
+s = Solution()
 
-if __name__ == "__main__":
-    candidates = [2, 3, 6, 7]
-    target = 7
-    print(CombinationSum().combination(candidates, target))
+print(s.combinationSum([2, 3, 6, 7], 7))
+
