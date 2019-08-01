@@ -8,49 +8,40 @@ class QuickSort:
     '''
 
     def sort(self, arr):
-        self.q_sort(arr, 0, len(arr) - 1)
+        self.sortRec(arr, 0, len(arr) - 1)
 
-    def q_sort(self, arr, low, high):
+    def sortRec(self, arr, start, end):
 
-        if low <= high:
-            index = self.partition(arr, low, high) # This is the only item that we know is in the correct spot so we leave it where it is
-
-            self.q_sort(arr, low, index - 1)
-            self.q_sort(arr, index + 1, high)
-
+        if start < end:
+            pi = self.partition(arr, start, end)
+            self.sortRec(arr, start, pi - 1)
+            self.sortRec(arr, pi + 1, end)
 
 
-    def partition(self, arr, low, high):
+    def partition(self, arr, start, end):
 
-        p = self.pivot(arr, low, high)
-        pivot = arr[p]
+        piv = self.pivot(arr, start, end)
+        self.swap(arr, piv, end)
+        left = start
+        right = end - 1
 
-        left = low
-        right = high  # Subtract one because now we have put the pivot at the last spot
-
-        print("pivot: ", pivot)
-
-        print("left: ", left)
-        print("right: ", right)
         while left < right:
 
-            if arr[left] < pivot: left += 1
-            if arr[right] >= pivot: right -= 1
+            if arr[left] < arr[end]:
+                left += 1
+                continue
 
+            if arr[right] > arr[end]:
+                right -= 1
+                continue
 
-            print("left: ", left)
-            print("right: ", right)
-
-            print("l: ", arr[left])
-            print("r: ", arr[right])
             if arr[left] > arr[right]:
                 self.swap(arr, left, right)
-
                 left += 1
                 right -= 1
 
+        self.swap(arr, left, end)
         return left
-
 
     def pivot(self, arr, low, high):
         return (low + high) // 2
@@ -65,10 +56,11 @@ if __name__ == "__main__":
 
     arr = [2, 1, 3, 5, 3, 4]
     arr = [2, 1, 3, 5, 4, 3]
+    arr = [4, 1, 5, 6, 2, 3]
 
 
     qs.sort(arr)
-    #qs.q_sort(arr, 4, 5)
+    #qs.partition(arr, 4, 5)
 
     print(arr)
 
