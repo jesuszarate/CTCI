@@ -19,4 +19,4 @@ class SubsetsNoDuplicates:
 
 if __name__ == "__main__":
     subset_no_dups = SubsetsNoDuplicates()
-    print(subset_no_dups.subsets([1,2,3]))
+    print(subset_no_dups.subsets(['a','a','b']))
