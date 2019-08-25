@@ -39,8 +39,12 @@ class Solution:
             del tmp_list[-1]
 
 
+
+
 s = Solution()
 
-print(s.subsets([2, 1, 3]))
+#print(s.subsets(['a', 'a', 'b']))
+
+print(s.subsets([1, -1, 5, -2, 3]))
 
 
