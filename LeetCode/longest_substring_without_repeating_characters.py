@@ -54,10 +54,7 @@ class Solution:
         return count
 
 s = Solution()
-        #'0123'
-# string = "kmepw"
-# # print(s.getSubstring(string, 4, 5, "w"))
-#
+
 string = "abcpabcbb"
 print(s.lengthOfLongestSubstring(string))# == 3)
 
