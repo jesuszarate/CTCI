@@ -31,8 +31,6 @@ pwwkew
 
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-
-
         mx = 1
         cache = list()
         cache.append(1)
@@ -57,17 +55,17 @@ class Solution:
 
 s = Solution()
         #'0123'
-string = "kmepw"
-# print(s.getSubstring(string, 4, 5, "w"))
-
-string = "abcabcbb"
-print(s.lengthOfLongestSubstring(string) == 3)
+# string = "kmepw"
+# # print(s.getSubstring(string, 4, 5, "w"))
+#
+string = "abcpabcbb"
+print(s.lengthOfLongestSubstring(string))# == 3)
 
 string = "pwwkew"
-print(s.lengthOfLongestSubstring(string) == 3)
+print(s.lengthOfLongestSubstring(string))# == 3)
 
 string = "bbbbb"
-print(s.lengthOfLongestSubstring(string) == 1)
+print(s.lengthOfLongestSubstring(string))# == 1)
 
 string = ""
-print(s.lengthOfLongestSubstring(string) == 0)
+print(s.lengthOfLongestSubstring(string))# == 0)
