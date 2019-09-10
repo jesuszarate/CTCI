@@ -14,17 +14,34 @@ If there is such window, you are guaranteed that there will always be only one u
 class Solution:
     def minWindow(self, s, t):
 
-        T = dict()
-        for st in t:
-            if st not in T:
-                T[st] = 0
-            T[st] += 1
-        print(T)
+        res = list()
+        for i in range(len(s)):
+            if s[i] in t:
+                res.append(i)
 
+        min_ = float("inf")
+        lower = -1
+        upper = -1
+        l = len(t) - 1
+        for i in range(len(res) - l):
+
+            val = res[i + l] - res[i]
+
+            if val < min_:
+                lower = res[i]
+                upper = res[i + l]
+                min_ = val
+
+        if (upper - lower) < l :
+            return ""
+
+        return s[lower:upper+1]
 
 s = Solution()
 
-s.minWindow("ADOBECODEBANC", "ABC")
+
+print(s.minWindow("bba",
+                  "ab"))
 
 
 
