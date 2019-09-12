@@ -11,48 +11,73 @@ Input: [[7,10],[2,4]]
 Output: 1
 '''
 
+
 class Node:
     def __init__(self, val):
-        self.val = val # [0, 30]
+        self.val = val  # [0, 30]
         self.next = None
         self.prev = None
+
+    def __str__(self):
+        return "(" + self.val[0] + ", " + self.val[1] + ")"
 
 class LinkedList:
     def __init__(self, node):
         self.head = node
         self.tail = node
 
+
 class Solution:
 
     def minMeetingRooms(self, intervals):
 
-        rooms = list() # [(), ()]
+        rooms = list()  # [(), ()]
 
         for interval in intervals:
 
-            for room in rooms:
-                next = self.canSqueezeIn(interval, room)
+            room, node = self.findRoom(rooms, interval)
 
-                if next:
-                    self.addToList(next, interval)
+            self.addToList(rooms[room], node, interval)
 
-                else:
-                    new_LL = LinkedList(Node(interval))
-                    room.append(new_LL)
+        return len(rooms)
 
-        return rooms
+    def findRoom(self, rooms, interval):
+        for i, room in enumerate(rooms):
+            next = self.canSqueezeIn(interval, room)
+            if next:
+                return (i, next)
+
+        rooms.append(LinkedList(None))
+        return (len(rooms) - 1, None)
 
 
-    def addToList(self, current_node, interval):
+    def addToList(self, room, current_node, interval):
         new_node = Node(interval)
 
-        temp_node = current_node.next
+        if not room.head and not room.tail:
+            room.head = new_node
+            room.tail = new_node
+            return
 
-        current_node.next = new_node
-        new_node.next = temp_node
+        if not current_node:
+            room.tail = new_node
+            new_node.prev = room.tail
 
-        temp_node.prev = new_node
-        new_node.prev = current_node
+
+        if not current_node.prev:
+            room.head = new_node
+            new_node.next = current_node
+
+
+        temp_node = current_node.prev
+
+        current_node.prev = new_node
+        new_node.prev = temp_node
+
+        if temp_node:
+            temp_node.next = new_node
+        new_node.next = current_node
+
 
     def canSqueezeIn(self, interval, room):
         '''
@@ -61,23 +86,26 @@ class Solution:
         :return: Node that will be the next
         '''
 
+        prev_room = None
         current_room = room.head
         while current_room:
 
-            if self.prev(current_room.val, interval):
-               return current_room
+            prev = self.prev(current_room.val, interval)
+            if prev:
+                return current_room
 
-            if self.next(current_room.val, interval):
+            next = self.next(current_room.val, interval)
+            if next:
+                prev_room = current_room
                 current_room = current_room.next
 
-        return None
-
-
-
-
+            if not prev and not next:
+                return None
+        return prev_room
 
     def prev(self, node, current) -> bool:
         return node[0] >= current[1]
+
 
     def next(self, node, current) -> bool:
         return node[1] <= current[0]
@@ -85,5 +113,6 @@ class Solution:
 
 s = Solution()
 
-meetings = [[0,30], [15, 20], [5, 10], [10, 15], [0,3], [12,14]]
+meetings = [[0, 30], [15, 20], [5, 10], [10, 15], [0, 3], [12, 14]]
+meetings = [[0,30],[5,10],[15,20]]
 print(s.minMeetingRooms(meetings))
