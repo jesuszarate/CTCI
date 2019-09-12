@@ -14,28 +14,36 @@ If there is such window, you are guaranteed that there will always be only one u
 class Solution:
     def minWindow(self, s, t):
 
-        res = list()
-        for i in range(len(s)):
-            if s[i] in t:
-                res.append(i)
+        l = 0
+        r = 0
 
-        min_ = float("inf")
-        lower = -1
-        upper = -1
-        l = len(t) - 1
-        for i in range(len(res) - l):
+        _min = len(s) + 1
+        _l = 0
+        _r = 0
 
-            val = res[i + l] - res[i]
+        m = dict()
+        while r <= len(s) - 1 or len(t) == len(m):
+            if len(m) != len(t):
+                if s[r] in t:
+                    if s[r] not in m:
+                        m[s[r]] = 0
 
-            if val < min_:
-                lower = res[i]
-                upper = res[i + l]
-                min_ = val
+                    m[s[r]] += 1
+                r += 1
+            else:
+                if _min > (r - l):
+                    _min = (r - l)
+                    _l = l
+                    _r = r
 
-        if (upper - lower) < l :
-            return ""
+                if s[l] in m:
+                    m[s[l]] -= 1
+                    if m[s[l]] == 0:
+                        m.pop(s[l])
+                l += 1
 
-        return s[lower:upper+1]
+        return "" if _min > len(s) else s[_l:_r]
+
 
 s = Solution()
 
@@ -43,5 +51,20 @@ s = Solution()
 print(s.minWindow("bba",
                   "ab"))
 
+S = "ADOBECODEBANC"
+T = "ABC"
+print(s.minWindow(S, T))
 
+S = "a"
+T = "a"
+print(s.minWindow(S, T))
+
+S = "a"
+T = "b"
+print(s.minWindow(S, T))
+
+
+S = "aa"
+T = "aa"
+print(s.minWindow(S, T))
 
