@@ -20,3 +20,5 @@ class WordFrequency:
 
     def getFrequency(self, word):
         return self.freqs[word]
+
+        
