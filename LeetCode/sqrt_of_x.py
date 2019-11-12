@@ -18,7 +18,7 @@ Explanation: The square root of 8 is 2.82842..., and since
 '''
 
 class Solution:
-    def mySqrt(self, x: int) -> int:
+    def mySqrt(self, x):
         '''
         "4"
         "2*2"
